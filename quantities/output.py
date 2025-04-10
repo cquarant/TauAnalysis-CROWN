@@ -335,3 +335,60 @@ iso_wgt_mu_1 = Quantity("iso_wgt_mu_1")
 iso_wgt_mu_2 = Quantity("iso_wgt_mu_2")
 # btag weight
 btag_weight = Quantity("btag_weight")
+
+
+FatJet_id_mask = Quantity("FatJet_id_mask")
+good_FatJets_mask = Quantity("good_FatJets_mask")
+nfatjets = Quantity("nfatjets")
+good_fatjet_collection = Quantity("good_fatjet_collection")
+good_Xbbtt_fatjet_collection = Quantity("good_Xbbtt_fatjet_collection")
+Loose_electron_veto_flag = Quantity("Loose_electron_veto_flag")
+n_Loose_electrons = Quantity("n_Loose_electrons")
+Loose_muon_veto_flag = Quantity("Loose_muon_veto_flag")
+n_Loose_muons = Quantity("n_Loose_muons")
+
+fatjet_p4_0 = Quantity("fatjet_p4_0")
+fatjet_p4_1 = Quantity("fatjet_p4_1")
+
+FatJet_tt_SFMass_0 = Quantity("FatJet_tt_SFMass_0")
+FatJet_bb_SFMass_1 = Quantity("FatJet_bb_SFMass_1")
+FatJet_tt_Mass_0 = Quantity("FatJet_tt_Mass_0")
+FatJet_bb_Mass_1 = Quantity("FatJet_bb_Mass_1")
+FatJet0_PNet_xttvsQCD = Quantity("FatJet0_PNet_xttvsQCD")
+FatJet1_PNet_xttvsQCD = Quantity("FatJet1_PNet_xttvsQCD")
+FatJet0_PNet_xbbvsQCD = Quantity("FatJet0_PNet_xbbvsQCD")
+FatJet1_PNet_xbbvsQCD = Quantity("FatJet1_PNet_xbbvsQCD")
+FatJet0_PNetQCD = Quantity("FatJet0_PNetQCD")
+FatJet1_PNetQCD = Quantity("FatJet1_PNetQCD")
+FatJet0_PNet_xtt = Quantity("FatJet0_PNet_xtt")
+FatJet1_PNet_xbb = Quantity("FatJet1_PNet_xbb")
+FatJet0_9X_xtt = Quantity("FatJet0_9X_xtt")
+FatJet1_9X_xbb = Quantity("FatJet1_9X_xbb")
+
+FatJet0_9X_xttvsQCD = Quantity("FatJet0_9X_xttvsQCD")
+FatJet1_9X_xbbvsQCD = Quantity("FatJet1_9X_xbbvsQCD")
+
+
+base_BoostedTau_mask = Quantity("base_BoostedTau_mask")
+base_BoostedTau_collection = Quantity("base_BoostedTau_collection")
+nBoostTaus = Quantity("nBoostTaus")
+dR_tau_Fatjet = Quantity("dR_tau_Fatjet")
+
+
+base_SubJet_mask = Quantity("base_SubJet_mask")
+base_SubJet_collection = Quantity("base_SubJet_collection")
+nSubJets = Quantity("nSubJets")
+dR_SubJet_Fatjet = Quantity("dR_SubJet_Fatjet")
+
+BoostedTau0_p4_0 = Quantity("BoostedTau0_p4_0")
+BoostedTau0_p4_1 = Quantity("BoostedTau0_p4_1")
+BoostedTau0_SFMass_0 = Quantity("BoostedTau0_SFMass_0")
+BoostedTau0_SFMass_1 = Quantity("BoostedTau0_SFMass_1")
+
+x0x1 = Quantity("x0x1")
+
+tautau_SFMAss_CA = Quantity("tautau_SFMAss_CA")
+tautau_MAss_CA = Quantity("tautau_MAss_CA")
+
+SubJet0_ifcannotfoundbydR = Quantity("SubJet0_ifcannotfoundbydR")
+SubJet1_ifcannotfoundbydR = Quantity("SubJet1_ifcannotfoundbydR")

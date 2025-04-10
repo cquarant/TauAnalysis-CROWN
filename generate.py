@@ -4,9 +4,9 @@ from code_generation.code_generation import CodeGenerator
 
 
 def run(args):
-    analysis_name = "tau"
-
+    analysis_name = "hhbbtautau"
     available_samples = [
+        "vbf_hh",
         "ggh_htautau",
         "ggh_hbb",
         "vbf_htautau",
@@ -22,29 +22,21 @@ def run(args):
         "wjets",
         "data",
         "electroweak_boson",
-        'ggh_htautau_2HDM'
-        # these are the new samples        
-        # "ggh_hww",
-        # "ggZZ",
-        # "rem_VH",
-        # "qcd",
-        # "rem_ttbar",
-        # "vbf_hww",
-        # "wg",
-        # "triboson",
-        # "triboson",
-        # "rem_ttbar",
-        #
+        'ggh_htautau_2HDM',
+        'VBFHH',
+        'ggFHH',
+        'tx'
     ]
-    available_eras = ["2016preVFP", "2016postVFP", "2017", "2018", "2022EE","2022postEE", "2023", "2023BPix"]
-    available_scopes = ["et", "mt", "tt", "em", "ee", "mm"]
+    available_eras = ["2022EE"]
+    ## "boostedtt_s" means finding <=1 boostedTau but >=2 SubJets
+    ## "boostedtt_f" means finding <=1 boostedTau and <=1 SubJet
+    available_scopes = ["boostedbb_boostedtt", "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"]
 
     ## setup variables
     shifts = set([shift.lower() for shift in args.shifts])
     sample_group = args.sample
     era = args.era
     scopes = list(set([scope.lower() for scope in args.scopes]))
-
     ## load config
     configname = args.config
     config = importlib.import_module(
