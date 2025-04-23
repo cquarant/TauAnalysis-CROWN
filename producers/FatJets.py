@@ -120,6 +120,28 @@ LVFatJet1 = Producer(
     scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
 )
 
+FatJetdR = Producer(
+    name="FatJetdR",
+    call="quantities::boostedbbtt::dR_fatjet({df}, {output}, {input})",
+    input=[
+        q.fatjet_p4_0, 
+        q.fatjet_p4_1,
+        ],
+    output=[q.dR_Fatjet],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+)
+
+FatJetdphi = Producer(
+    name="FatJetdphi",
+    call="quantities::boostedbbtt::dphi_fatjet({df}, {output}, {input})",
+    input=[
+        q.fatjet_p4_0, 
+        q.fatjet_p4_1,
+        ],
+    output=[q.dphi_Fatjet],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+)
+
 FatJetSFMass0 = Producer(
     name="FatJetSFMass0",
     call="lorentzvectors::buildSFMass({df}, {input_vec}, 0, {output})",

@@ -157,7 +157,7 @@ Nu_tau_x12 = Producer(
 
 SubJet0_ifcannotfoundbydR = Producer(
     name="SubJet0_ifcannotfoundbydR",
-    call="lorentzvectors::buildSFMass({df}, {input_vec}, 0, {output})",
+    call="lorentzvectors::build_subjet_postion({df}, {input_vec}, 0, {output})",
     input=[
         q.good_Xbbtt_fatjet_collection,
         nanoAOD.FatJet_subJetIdx1, 
@@ -168,7 +168,7 @@ SubJet0_ifcannotfoundbydR = Producer(
 
 SubJet1_ifcannotfoundbydR = Producer(
     name="SubJet1_ifcannotfoundbydR",
-    call="lorentzvectors::buildSFMass({df}, {input_vec}, 0, {output})",
+    call="lorentzvectors::build_subjet_postion({df}, {input_vec}, 0, {output})",
     input=[
         q.good_Xbbtt_fatjet_collection,
         nanoAOD.FatJet_subJetIdx2, 
@@ -203,4 +203,25 @@ LVSubJet1_ifcannotfoundbydR = Producer(
     ],
     output=[q.BoostedTau0_p4_1],
     scopes=["boostedbb_boostedtt_fatjet"],
+)
+
+
+MatchSubJet = Producer(
+    name="MatchSubJet",
+    call="lorentzvectors::matchSubJet({df}, {input_vec}, 0, 1, {output})",
+    input=[
+        q.base_SubJet_collection,
+        q.SubJet0_ifcannotfoundbydR,
+        q.SubJet1_ifcannotfoundbydR,
+    ],
+    output=[q.MatchedSubinfo],
+    scopes=["boostedbb_boostedtt_subjet"],
+)
+
+MatchSubJet_fake = Producer(
+    name="MatchSubJet_fake",
+    call="lorentzvectors::buildSafem1({df}, {output})",
+    input=[],
+    output=[q.MatchedSubinfo],
+    scopes=["boostedbb_boostedtt", "boostedbb_boostedtt_fatjet"],
 )

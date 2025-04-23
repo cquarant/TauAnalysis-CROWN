@@ -178,11 +178,24 @@ def build_config(
     configuration.add_producers(
         ["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
         [
+
+            FatJets.GoodFatJets,
+            FatJets.NumberOfGoodFatJets,   
+
             electrons_boostedbbtt.BaseElectrons,
             muons_boostedbbtt.BaseMuons,
 
-            FatJets.GoodFatJets,
-            FatJets.NumberOfGoodFatJets,
+            electrons_boostedbbtt.NumberOfLooseElectrons,
+            electrons_boostedbbtt.LooseElectronsVeto,
+            
+            muons_boostedbbtt.NumberOfLooseMuons,
+            muons_boostedbbtt.LooseMuonsVeto,   
+        ]
+    )
+
+    configuration.add_producers(
+        ["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        [
             FatJets.FatJetCollection_Xtt,
             FatJets.FilterNFatJets,
 
@@ -207,11 +220,9 @@ def build_config(
             FatJets.FatJet0_9X_tt,
             FatJets.FatJet1_9X_bb,
 
-            electrons_boostedbbtt.NumberOfLooseElectrons,
-            electrons_boostedbbtt.LooseElectronsVeto,
-            
-            muons_boostedbbtt.NumberOfLooseMuons,
-            muons_boostedbbtt.LooseMuonsVeto,
+            FatJets.FatJetdR,
+            FatJets.FatJetdphi,
+
 
             boostedtau_boostedbbtt.TauFatJetdR,
             boostedtau_boostedbbtt.BaseBoostedTaus,
@@ -226,11 +237,6 @@ def build_config(
             subjet_boostedbbtt.SubJet0_ifcannotfoundbydR,
             subjet_boostedbbtt.SubJet1_ifcannotfoundbydR,
             
-
-            # event.FilterNLooseMuons,
-            # event.FilterNLooseEles,
-            # event.FilterNTightMuons,
-            # event.FilterNTightEles,
         ]
         
 
@@ -241,6 +247,8 @@ def build_config(
         ["boostedbb_boostedtt"],
         [
             boostedtau_boostedbbtt.FilterNBoostTaus,
+
+            subjet_boostedbbtt.MatchSubJet_fake,
             
             boostedtau_boostedbbtt.LVBoostedTau0,
             boostedtau_boostedbbtt.LVBoostedTau1,
@@ -262,6 +270,8 @@ def build_config(
             boostedtau_boostedbbtt.FilterNBoostTaus_veto,
             subjet_boostedbbtt.FilterNSubJets,
 
+            subjet_boostedbbtt.MatchSubJet,
+
             subjet_boostedbbtt.LVSubJet0,
             subjet_boostedbbtt.LVSubJet1,
 
@@ -281,21 +291,23 @@ def build_config(
             boostedtau_boostedbbtt.FilterNBoostTaus_veto,
             subjet_boostedbbtt.FilterNSubJets_veto,
 
-            # FatJets.LV0,
-            # FatJets.LV1,
+            subjet_boostedbbtt.MatchSubJet_fake,
 
-            subjet_boostedbbtt.LVSubJet0_ifcannotfoundbydR,
-            subjet_boostedbbtt.LVSubJet1_ifcannotfoundbydR,
+            FatJets.LV0,
+            FatJets.LV1,
+
+            # subjet_boostedbbtt.LVSubJet0_ifcannotfoundbydR,
+            # subjet_boostedbbtt.LVSubJet1_ifcannotfoundbydR,
 
             FatJets.Mass999_0,
             FatJets.Mass999_1,
 
-            # FatJets.Fake_x12,
-            # FatJets.Mass_CA_FatJet,
-            # FatJets.Mass_CA_FatJet_SF,
-            subjet_boostedbbtt.Nu_tau_x12,
-            FatJets.Mass_CA,
-            FatJets.Mass_CA_SF,
+            FatJets.Fake_x12,
+            FatJets.Mass_CA_FatJet,#需要改写
+            FatJets.Mass_CA_FatJet_SF,
+            # subjet_boostedbbtt.Nu_tau_x12,
+            # FatJets.Mass_CA,
+            # FatJets.Mass_CA_SF,
         ]
         
     )
@@ -324,8 +336,25 @@ def build_config(
             nanoAOD.HLT_PFHT500_PFMET100_PFMHT100_IDTight,
             nanoAOD.HLT_PFHT700_PFMET85_PFMHT85_IDTight,
             nanoAOD.HLT_PFHT800_PFMET75_PFMHT75_IDTight,
+
         ],
     )
+
+    # configuration.add_outputs(
+    #     ["notwofatjet"],
+    #     [
+    #         q.base_electrons_mask,
+    #         q.base_muons_mask,
+    #         q.Loose_muon_veto_flag,
+    #         q.Loose_electron_veto_flag,
+    #         q.n_Loose_muons,
+    #         q.n_Loose_electrons,
+    #         q.FatJet_id_mask,
+    #         q.good_FatJets_mask,
+    #         q.nfatjets,
+    #     ],
+    # )
+
     configuration.add_outputs(
         ["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
         [
@@ -357,6 +386,9 @@ def build_config(
             q.FatJet0_9X_xtt,
             q.FatJet1_9X_xbb,
 
+            q.dR_Fatjet,
+            q.dphi_Fatjet,
+
             q.Loose_muon_veto_flag,
             q.Loose_electron_veto_flag,
             q.n_Loose_muons,
@@ -383,6 +415,8 @@ def build_config(
             q.x0x1,
             q.tautau_SFMAss_CA,
             q.tautau_MAss_CA,
+
+            q.MatchedSubinfo,
         ],
     )
 

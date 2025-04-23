@@ -30,7 +30,7 @@ def run(args):
     available_eras = ["2022EE"]
     ## "boostedtt_s" means finding <=1 boostedTau but >=2 SubJets
     ## "boostedtt_f" means finding <=1 boostedTau and <=1 SubJet
-    available_scopes = ["boostedbb_boostedtt", "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"]
+    available_scopes = ["boostedbb_boostedtt", "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt", "notwofatjet"]
 
     ## setup variables
     shifts = set([shift.lower() for shift in args.shifts])

@@ -392,3 +392,10 @@ tautau_MAss_CA = Quantity("tautau_MAss_CA")
 
 SubJet0_ifcannotfoundbydR = Quantity("SubJet0_ifcannotfoundbydR")
 SubJet1_ifcannotfoundbydR = Quantity("SubJet1_ifcannotfoundbydR")
+
+tag_dRdphi_FatJet = Quantity("tag_dRdphi_FatJet")
+
+dR_Fatjet = Quantity("dR_Fatjet")
+dphi_Fatjet = Quantity("dphi_Fatjet")
+
+MatchedSubinfo = Quantity("MatuchedSubinfo")
