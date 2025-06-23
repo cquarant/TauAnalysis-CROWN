@@ -18,7 +18,7 @@ TauFatJetdR = Producer(
         nanoAOD.boostedTau_mass,
         ],
     output=[q.dR_tau_Fatjet],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 TauFatJetdRCut = Producer(
@@ -26,7 +26,7 @@ TauFatJetdRCut = Producer(
     call="physicsobject::CutVarMax({df}, {input}, {output}, {min_fatjet_dR})",
     input=[q.dR_tau_Fatjet],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 BaseBoostedTaus = ProducerGroup(
@@ -34,7 +34,7 @@ BaseBoostedTaus = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.base_BoostedTau_mask],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[
         TauFatJetdRCut,
     ],
@@ -48,7 +48,7 @@ BoosetedTauCollection = Producer(
         q.base_BoostedTau_mask,
         ],
     output=[q.base_BoostedTau_collection],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 NumberOfBoostTaus = Producer(
@@ -56,21 +56,21 @@ NumberOfBoostTaus = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.base_BoostedTau_mask],
     output=[q.nBoostTaus],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 NBoostTauFlag = Producer(
     name="NBoostTauFlag",
     call='physicsobject::flagNumObject({df}, {output}, {input}, {nBoostedTau_min}, ">=")',
     input=[q.nBoostTaus],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 # call='basefunctions::FilterThreshold({df}, {input}, {FullyBoosted_good_nfatjets}, ">=", "Number of fatjets >= 1")',
 FilterNBoostTaus = Filter(
     name="FilterNBoostTaus",
     call='basefunctions::FilterFlagsAny({df}, "Number of BoostTaus >= 2", {input})',
     input=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[NBoostTauFlag]
 )
 
@@ -80,13 +80,13 @@ NBoostTauFlag_veto = Producer(
     call='physicsobject::flagNumObject({df}, {output}, {input}, {nBoostedTau_min}, "<")',
     input=[q.nBoostTaus],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 FilterNBoostTaus_veto = Filter(
     name="FilterNBoostTaus_veto",
     call='basefunctions::FilterFlagsAny({df}, "Number of BoostTaus < 2", {input})',
     input=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[NBoostTauFlag_veto]
 )
 
@@ -101,7 +101,7 @@ LVBoostedTau0 = Producer(
         nanoAOD.boostedTau_mass,
     ],
     output=[q.BoostedTau0_p4_0],
-    scopes=["boostedbb_boostedtt"],
+    scopes=["boostedbb_boostedtt", "resbb_boostedtt"],
 )
 
 LVBoostedTau1 = Producer(
@@ -115,7 +115,7 @@ LVBoostedTau1 = Producer(
         nanoAOD.boostedTau_mass,
     ],
     output=[q.BoostedTau0_p4_1],
-    scopes=["boostedbb_boostedtt"],
+    scopes=["boostedbb_boostedtt", "resbb_boostedtt"],
 )
 
 SFMass0 = Producer(
@@ -126,7 +126,7 @@ SFMass0 = Producer(
         nanoAOD.boostedTau_mass,
     ],
     output=[q.BoostedTau0_SFMass_0],
-    scopes=["boostedbb_boostedtt"]
+    scopes=["boostedbb_boostedtt", "resbb_boostedtt"]
 )
 
 SFMass1 = Producer(
@@ -137,7 +137,7 @@ SFMass1 = Producer(
         nanoAOD.boostedTau_mass,
     ],
     output=[q.BoostedTau0_SFMass_1],
-    scopes=["boostedbb_boostedtt"]
+    scopes=["boostedbb_boostedtt", "resbb_boostedtt"]
 )
 
 Nu_tau_x12 = Producer(
@@ -150,5 +150,5 @@ Nu_tau_x12 = Producer(
         nanoAOD.PFMET_phi,
     ],
     output=[q.x0x1],
-    scopes=["boostedbb_boostedtt"],
+    scopes=["boostedbb_boostedtt", "resbb_boostedtt"],
 )

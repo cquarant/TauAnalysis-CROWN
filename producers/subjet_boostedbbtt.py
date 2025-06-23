@@ -18,7 +18,7 @@ SubJetFatJetdR = Producer(
         nanoAOD.SubJet_mass,
         ],
     output=[q.dR_SubJet_Fatjet],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 SubJetFatJetdRCut = Producer(
@@ -26,7 +26,7 @@ SubJetFatJetdRCut = Producer(
     call="physicsobject::CutVarMax({df}, {input}, {output}, {min_fatjet_dR})",
     input=[q.dR_SubJet_Fatjet],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 BaseSubJets = ProducerGroup(
@@ -34,7 +34,7 @@ BaseSubJets = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.base_SubJet_mask],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[
         SubJetFatJetdRCut,
     ],
@@ -48,7 +48,7 @@ SubJetCollection = Producer(
         q.base_SubJet_mask,
         ],
     output=[q.base_SubJet_collection],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 NumberOfSubJets = Producer(
@@ -56,21 +56,21 @@ NumberOfSubJets = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.base_SubJet_mask],
     output=[q.nSubJets],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 NSubJetFlag = Producer(
     name="NSubJetFlag",
     call='physicsobject::flagNumObject({df}, {output}, {input}, {nSubJet_min}, ">=")',
     input=[q.nSubJets],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 # call='basefunctions::FilterThreshold({df}, {input}, {FullyBoosted_good_nfatjets}, ">=", "Number of fatjets >= 1")',
 FilterNSubJets = Filter(
     name="FilterNSubJets",
     call='basefunctions::FilterFlagsAny({df}, "Number of SubJets >= 2", {input})',
     input=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[NSubJetFlag]
 )
 
@@ -79,14 +79,14 @@ NSubJetFlag_veto = Producer(
     call='physicsobject::flagNumObject({df}, {output}, {input}, {nSubJet_min}, "<")',
     input=[q.nSubJets],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 # call='basefunctions::FilterThreshold({df}, {input}, {FullyBoosted_good_nfatjets}, ">=", "Number of fatjets >= 1")',
 FilterNSubJets_veto = Filter(
     name="FilterNSubJets_veto",
     call='basefunctions::FilterFlagsAny({df}, "Number of SubJets < 2", {input})',
     input=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[NSubJetFlag_veto]
 )
 
@@ -101,7 +101,7 @@ LVSubJet0 = Producer(
         nanoAOD.SubJet_mass,
     ],
     output=[q.BoostedTau0_p4_0],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "resbb_boostedtt"],
 )
 
 LVSubJet1 = Producer(
@@ -115,7 +115,7 @@ LVSubJet1 = Producer(
         nanoAOD.SubJet_mass,
     ],
     output=[q.BoostedTau0_p4_1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "resbb_boostedtt"],
 )
 
 SFMass0 = Producer(
@@ -126,7 +126,7 @@ SFMass0 = Producer(
         nanoAOD.SubJet_mass,
     ],
     output=[q.BoostedTau0_SFMass_0],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"]
 )
 
 SFMass1 = Producer(
@@ -137,7 +137,7 @@ SFMass1 = Producer(
         nanoAOD.SubJet_mass,
     ],
     output=[q.BoostedTau0_SFMass_1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"]
 )
 
 Nu_tau_x12 = Producer(
@@ -150,7 +150,7 @@ Nu_tau_x12 = Producer(
         nanoAOD.PFMET_phi,
     ],
     output=[q.x0x1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 
@@ -163,7 +163,7 @@ SubJet0_ifcannotfoundbydR = Producer(
         nanoAOD.FatJet_subJetIdx1, 
         ],
     output=[q.SubJet0_ifcannotfoundbydR],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 SubJet1_ifcannotfoundbydR = Producer(
@@ -174,7 +174,7 @@ SubJet1_ifcannotfoundbydR = Producer(
         nanoAOD.FatJet_subJetIdx2, 
         ],
     output=[q.SubJet1_ifcannotfoundbydR],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 LVSubJet0_ifcannotfoundbydR = Producer(
@@ -188,7 +188,7 @@ LVSubJet0_ifcannotfoundbydR = Producer(
         nanoAOD.SubJet_mass,
     ],
     output=[q.BoostedTau0_p4_0],
-    scopes=["boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 LVSubJet1_ifcannotfoundbydR = Producer(
@@ -202,7 +202,7 @@ LVSubJet1_ifcannotfoundbydR = Producer(
         nanoAOD.SubJet_mass,
     ],
     output=[q.BoostedTau0_p4_1],
-    scopes=["boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 
@@ -215,7 +215,7 @@ MatchSubJet = Producer(
         q.SubJet1_ifcannotfoundbydR,
     ],
     output=[q.MatchedSubinfo],
-    scopes=["boostedbb_boostedtt_subjet"],
+    scopes=["boostedbb_boostedtt_subjet", "resbb_boostedtt"],
 )
 
 MatchSubJet_fake = Producer(
@@ -223,5 +223,5 @@ MatchSubJet_fake = Producer(
     call="lorentzvectors::buildSafem1({df}, {output})",
     input=[],
     output=[q.MatchedSubinfo],
-    scopes=["boostedbb_boostedtt", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )

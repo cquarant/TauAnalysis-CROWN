@@ -11,21 +11,21 @@ FatJetPtCut = Producer(
     call="physicsobject::CutPt({df}, {input}, {output}, {min_FatJet_pt})",
     input=[nanoAOD.FatJet_pt],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 FatJetEtaCut = Producer(
     name="FatJetEtaCut",
     call="physicsobject::CutEta({df}, {input}, {output}, {max_FatJet_eta})",
     input=[nanoAOD.FatJet_eta],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 FatJetIDCut = Producer(
     name="FatJetIDCut",
     call='physicsobject::jet::CutID({df}, {output}, "{FatJet_id}")',
     input=[nanoAOD.FatJet_jetId],
     output=[q.FatJet_id_mask],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 ## 2022preEE fatjet id UChar_t 
 FatJetIDCut_UChar = Producer(
@@ -33,7 +33,7 @@ FatJetIDCut_UChar = Producer(
     call="physicsobject::jet::CutUCharID({df}, {output}, {input}, {FatJet_id})",
     input=[nanoAOD.FatJet_jetId],
     output=[q.FatJet_id_mask],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 GoodFatJets = ProducerGroup(
@@ -41,7 +41,7 @@ GoodFatJets = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_FatJets_mask],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[
         FatJetPtCut, 
         FatJetEtaCut,
@@ -53,21 +53,21 @@ NumberOfGoodFatJets = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.good_FatJets_mask],
     output=[q.nfatjets],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 NFatjetFlag = Producer(
     name="NFatjetFlag",
     call='physicsobject::flagNumObject({df}, {output}, {input}, {FullyBoosted_good_nfatjets}, ">=")',
     input=[q.nfatjets],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 # call='basefunctions::FilterThreshold({df}, {input}, {FullyBoosted_good_nfatjets}, ">=", "Number of fatjets >= 1")',
 FilterNFatJets = Filter(
     name="FilterNFatJets",
-    call='basefunctions::FilterFlagsAny({df}, "Number of fatjets >= 2", {input})',
+    call='basefunctions::FilterFlagsAny({df}, "Number of fatjets >= 1", {input})',
     input=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[NFatjetFlag]
 )
 # fatjet collection with pt
@@ -76,7 +76,7 @@ FatJetCollection = Producer(
     call="jet::OrderJetsByPt({df}, {output}, {input})",
     input=[nanoAOD.FatJet_pt, q.good_FatJets_mask],
     output=[q.good_fatjet_collection],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 
@@ -88,7 +88,7 @@ FatJetCollection_Xtt = Producer(
         nanoAOD.FatJet_particleNet_XbbVsQCD, 
         q.good_FatJets_mask],
     output=[q.good_Xbbtt_fatjet_collection],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 #ttFatjet 
@@ -103,7 +103,7 @@ LVFatJet0 = Producer(
         nanoAOD.FatJet_mass,
     ],
     output=[q.fatjet_p4_0],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 LVFatJet1 = Producer(
@@ -117,7 +117,7 @@ LVFatJet1 = Producer(
         nanoAOD.FatJet_mass,
     ],
     output=[q.fatjet_p4_1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJetdR = Producer(
@@ -128,7 +128,7 @@ FatJetdR = Producer(
         q.fatjet_p4_1,
         ],
     output=[q.dR_Fatjet],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJetdphi = Producer(
@@ -139,7 +139,7 @@ FatJetdphi = Producer(
         q.fatjet_p4_1,
         ],
     output=[q.dphi_Fatjet],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJetSFMass0 = Producer(
@@ -150,7 +150,7 @@ FatJetSFMass0 = Producer(
         nanoAOD.FatJet_msoftdrop,
     ],
     output=[q.FatJet_tt_SFMass_0],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJetSFMass1 = Producer(
@@ -161,7 +161,7 @@ FatJetSFMass1 = Producer(
         nanoAOD.FatJet_msoftdrop,
     ],
     output=[q.FatJet_bb_SFMass_1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJetMass0 = Producer(
@@ -172,7 +172,7 @@ FatJetMass0 = Producer(
         nanoAOD.FatJet_mass,
     ],
     output=[q.FatJet_tt_Mass_0],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJetMass1 = Producer(
@@ -183,7 +183,7 @@ FatJetMass1 = Producer(
         nanoAOD.FatJet_mass,
     ],
     output=[q.FatJet_bb_Mass_1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet0_PNet_xtt_vs_QCD = Producer(
@@ -194,7 +194,7 @@ FatJet0_PNet_xtt_vs_QCD = Producer(
         nanoAOD.FatJet_particleNet_XttVsQCD,
     ],
     output=[q.FatJet0_PNet_xttvsQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet1_PNet_xtt_vs_QCD = Producer(
@@ -205,7 +205,7 @@ FatJet1_PNet_xtt_vs_QCD = Producer(
         nanoAOD.FatJet_particleNet_XttVsQCD,
     ],
     output=[q.FatJet1_PNet_xttvsQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet0_PNet_xbb_vs_QCD = Producer(
@@ -216,7 +216,7 @@ FatJet0_PNet_xbb_vs_QCD = Producer(
         nanoAOD.FatJet_particleNet_XbbVsQCD,
     ],
     output=[q.FatJet0_PNet_xbbvsQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet1_PNet_xbb_vs_QCD = Producer(
@@ -227,7 +227,7 @@ FatJet1_PNet_xbb_vs_QCD = Producer(
         nanoAOD.FatJet_particleNet_XbbVsQCD,
     ],
     output=[q.FatJet1_PNet_xbbvsQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet0_PNet_QCD = Producer(
@@ -238,7 +238,7 @@ FatJet0_PNet_QCD = Producer(
         nanoAOD.FatJet_particleNet_QCD,
     ],
     output=[q.FatJet0_PNetQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet1_PNet_QCD = Producer(
@@ -249,7 +249,7 @@ FatJet1_PNet_QCD = Producer(
         nanoAOD.FatJet_particleNet_QCD,
     ],
     output=[q.FatJet1_PNetQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet0_9X_ttvsqcd = Producer(
@@ -259,7 +259,7 @@ FatJet0_9X_ttvsqcd = Producer(
         q.FatJet0_PNet_xttvsQCD,
     ],
     output=[q.FatJet0_9X_xttvsQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet1_9X_bbvsqcd = Producer(
@@ -269,7 +269,7 @@ FatJet1_9X_bbvsqcd = Producer(
         q.FatJet1_PNet_xbbvsQCD,
     ],
     output=[q.FatJet1_9X_xbbvsQCD],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet0_PNet_xtt = Producer(
@@ -280,7 +280,7 @@ FatJet0_PNet_xtt = Producer(
         q.FatJet0_PNetQCD,
     ],
     output=[q.FatJet0_PNet_xtt],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet1_PNet_xbb = Producer(
@@ -291,7 +291,7 @@ FatJet1_PNet_xbb = Producer(
         q.FatJet1_PNetQCD,
     ],
     output=[q.FatJet1_PNet_xbb],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet0_9X_tt = Producer(
@@ -301,7 +301,7 @@ FatJet0_9X_tt = Producer(
         q.FatJet0_PNet_xtt,
     ],
     output=[q.FatJet0_9X_xtt],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 FatJet1_9X_bb = Producer(
@@ -311,7 +311,7 @@ FatJet1_9X_bb = Producer(
         q.FatJet1_PNet_xbb,
     ],
     output=[q.FatJet1_9X_xbb],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 LV0 = Producer(
@@ -319,7 +319,7 @@ LV0 = Producer(
     call="lorentzvectors::buildSafeP4({df},{output})",
     input=[],
     output=[q.BoostedTau0_p4_0],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 LV1 = Producer(
@@ -327,7 +327,7 @@ LV1 = Producer(
     call="lorentzvectors::buildSafeP4({df},{output})",
     input=[],
     output=[q.BoostedTau0_p4_1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 Mass999_0 = Producer(
@@ -335,7 +335,7 @@ Mass999_0 = Producer(
     call="lorentzvectors::buildSafe999({df}, {output})",
     input=[],
     output=[q.BoostedTau0_SFMass_0],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 Mass999_1 = Producer(
@@ -343,7 +343,7 @@ Mass999_1 = Producer(
     call="lorentzvectors::buildSafe999({df}, {output})",
     input=[],
     output=[q.BoostedTau0_SFMass_1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"]
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 Fake_x12 = Producer(
@@ -351,7 +351,7 @@ Fake_x12 = Producer(
     call="lorentzvectors::buildSafe999({df}, {output})",
     input=[],
     output=[q.x0x1],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 Mass_CA = Producer(
@@ -362,7 +362,7 @@ Mass_CA = Producer(
         q.FatJet_tt_Mass_0,
     ],
     output=[q.tautau_MAss_CA],
-    scopes=["boostedbb_boostedtt", "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt", "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 Mass_CA_SF = Producer(
@@ -373,7 +373,7 @@ Mass_CA_SF = Producer(
         q.FatJet_tt_SFMass_0,
     ],
     output=[q.tautau_SFMAss_CA],
-    scopes=["boostedbb_boostedtt", "boostedbb_boostedtt_subjet" , "boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt", "boostedbb_boostedtt_subjet" , "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 Mass_CA_FatJet = Producer(
@@ -385,7 +385,7 @@ Mass_CA_FatJet = Producer(
         nanoAOD.PFMET_phi,
     ],
     output=[q.tautau_MAss_CA],
-    scopes=["boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 Mass_CA_FatJet_SF = Producer(
@@ -397,5 +397,5 @@ Mass_CA_FatJet_SF = Producer(
         nanoAOD.PFMET_phi,
     ],
     output=[q.tautau_SFMAss_CA],
-    scopes=["boostedbb_boostedtt_fatjet"],
+    scopes=["boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )

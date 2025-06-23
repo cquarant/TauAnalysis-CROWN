@@ -11,7 +11,7 @@ MuonPtCut = Producer(
     call="physicsobject::CutPt({df}, {input}, {output}, {LooseMuon_pt})",
     input=[nanoAOD.Muon_pt],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 MuonEtaCut = Producer(
@@ -19,42 +19,42 @@ MuonEtaCut = Producer(
     call="physicsobject::CutEta({df}, {input}, {output}, {LooseMuon_eta})",
     input=[nanoAOD.Muon_eta],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 MuonDxyCut = Producer(
     name="MuonDxyCut",
     call="physicsobject::CutDxy({df}, {input}, {output}, {LooseMuon_dxy})",
     input=[nanoAOD.Muon_dxy],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 MuonDzCut = Producer(
     name="MuonDzCut",
     call="physicsobject::CutDz({df}, {input}, {output}, {LooseMuon_dz})",
     input=[nanoAOD.Muon_dz],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 MuonIDCut = Producer(
     name="MuonIDCut",
     call='physicsobject::muon::CutID({df}, {output}, "{muon_id}")',
     input=[],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 MuonIsoCut = Producer(
     name="MuonIsoCut",
     call="physicsobject::muon::CutIsolation({df}, {output}, {input}, {LooseMuon_miniPFRelIso_all})",
     input=[nanoAOD.Muon_miniPFRelIso_all],
     output=[],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 BaseMuons = ProducerGroup(
     name="BaseMuons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.base_muons_mask],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
     subproducers=[
         MuonPtCut,
         MuonEtaCut,
@@ -70,7 +70,7 @@ LooseMuonsVeto = Producer(
     call="physicsobject::LeptonVetoFlag({df}, {output}, {input})",
     input=[q.base_muons_mask],
     output=[q.Loose_muon_veto_flag],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
 
 NumberOfLooseMuons = Producer(
@@ -78,5 +78,5 @@ NumberOfLooseMuons = Producer(
     call="quantities::NumberOfGoodLeptons({df}, {output}, {input})",
     input=[q.base_muons_mask],
     output=[q.n_Loose_muons],
-    scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
+        scopes=["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet", "resbb_boostedtt"],
 )
