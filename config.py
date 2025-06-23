@@ -125,6 +125,7 @@ def build_config(
         },
     )
 
+    # Muon base selection parameters:
     configuration.add_config_parameters(
         ["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
         {
@@ -141,6 +142,7 @@ def build_config(
         }
     )
 
+    # Electron base selection parameters:
     configuration.add_config_parameters(
         ["boostedbb_boostedtt",  "boostedbb_boostedtt_subjet", "boostedbb_boostedtt_fatjet"],
         {
